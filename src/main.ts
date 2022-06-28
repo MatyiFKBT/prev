@@ -14,7 +14,8 @@ async function run(): Promise<void> {
     core.debug(authentication.token)
     const octokit = new Octokit({ authStrategy: createActionAuth })
     core.debug('octokit initiated')
-    const { data: { total_count } } = await octokit.actions.listWorkflowRunsForRepo({ owner: 'matyifkbt', repo: 'prev' })
+    const [owner,repo] = process.env.GITHUB_REPOSITORY!.split('/');
+    const { data: { total_count } } = await octokit.actions.listWorkflowRunsForRepo({ owner,repo })
     core.debug('octokit auth response')
     core.info(`total ${total_count}`)
     core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
