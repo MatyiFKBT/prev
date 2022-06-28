@@ -1,0 +1,11 @@
+name: 'Clean old runs'
+description: 'Clean old Github Actions runs'
+author: 'MatyiFKBT'
+inputs:
+  milliseconds: # change this
+    required: true
+    description: 'test input'
+    default: 1000
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
