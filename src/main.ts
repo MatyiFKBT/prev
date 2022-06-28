@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { createActionAuth } from '@octokit/auth-action';
-import { Octokit } from '@octokit/action';
+import { Octokit } from '@octokit/rest';
 import { wait } from './wait'
 
 async function run(): Promise<void> {
@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     const auth = createActionAuth();
     const authentication = await auth();
     core.info(JSON.stringify(authentication,null,2))
-    const octokit = new Octokit({auth: authentication.token})
+    const octokit = new Octokit({authStrategy: createActionAuth})
     core.debug('octokit initiated')
     const {data: {login}} = await octokit.rest.users.getAuthenticated();
     core.debug('octokit auth response')
