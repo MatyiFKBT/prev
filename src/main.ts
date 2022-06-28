@@ -10,7 +10,7 @@ async function run(): Promise<void> {
     // auth
     const auth = createActionAuth();
     const authentication = await auth();
-    core.info(JSON.stringify(authentication,null,2))
+    core.debug(authentication.token)
     const octokit = new Octokit({authStrategy: createActionAuth})
     core.debug('octokit initiated')
     const {data: {login}} = await octokit.rest.users.getAuthenticated();

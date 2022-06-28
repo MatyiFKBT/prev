@@ -51,7 +51,7 @@ function run() {
             // auth
             const auth = (0, auth_action_1.createActionAuth)();
             const authentication = yield auth();
-            core.info(JSON.stringify(authentication, null, 2));
+            core.debug(authentication.token);
             const octokit = new rest_1.Octokit({ authStrategy: auth_action_1.createActionAuth });
             core.debug('octokit initiated');
             const { data: { login } } = yield octokit.rest.users.getAuthenticated();
