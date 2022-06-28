@@ -54,7 +54,8 @@ function run() {
             core.debug(authentication.token);
             const octokit = new rest_1.Octokit({ authStrategy: auth_action_1.createActionAuth });
             core.debug('octokit initiated');
-            const { data: { total_count } } = yield octokit.actions.listWorkflowRunsForRepo({ owner: 'matyifkbt', repo: 'prev' });
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
+            const { data: { total_count } } = yield octokit.actions.listWorkflowRunsForRepo({ owner, repo });
             core.debug('octokit auth response');
             core.info(`total ${total_count}`);
             core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
