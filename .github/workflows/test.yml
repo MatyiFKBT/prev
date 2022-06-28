@@ -25,3 +25,4 @@ jobs:
           milliseconds: 1000
         env:
           ACTIONS_STEP_DEBUG: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
