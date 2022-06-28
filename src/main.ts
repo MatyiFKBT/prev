@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { createActionAuth } from '@octokit/auth-action';
-import { Octokit } from 'octokit';
+import { Octokit } from '@octokit/action';
 import { wait } from './wait'
 
 async function run(): Promise<void> {
@@ -12,7 +12,9 @@ async function run(): Promise<void> {
     const authentication = await auth();
     core.info(JSON.stringify(authentication,null,2))
     const octokit = new Octokit({auth: authentication.token})
+    core.debug('octokit initiated')
     const {data: {login}} = await octokit.rest.users.getAuthenticated();
+    core.debug('octokit auth response')
     core.info(`Hello ${login}`)
     core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
     core.debug(new Date().toTimeString())
