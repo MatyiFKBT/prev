@@ -47,16 +47,16 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const ms = core.getInput('milliseconds');
-            core.info('Hello!');
+            core.info(JSON.stringify(process.env, null, 2));
             // auth
             const auth = (0, auth_action_1.createActionAuth)();
             const authentication = yield auth();
             core.debug(authentication.token);
             const octokit = new rest_1.Octokit({ authStrategy: auth_action_1.createActionAuth });
             core.debug('octokit initiated');
-            const { data: { login } } = yield octokit.rest.users.getAuthenticated();
+            const { data: { total_count } } = yield octokit.actions.listWorkflowRunsForRepo({ owner: 'matyifkbt', repo: 'prev' });
             core.debug('octokit auth response');
-            core.info(`Hello ${login}`);
+            core.info(`total ${total_count}`);
             core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
             core.debug(new Date().toTimeString());
             yield (0, wait_1.wait)(parseInt(ms, 10));
